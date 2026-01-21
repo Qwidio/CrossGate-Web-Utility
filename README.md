@@ -9,9 +9,9 @@
 ## About?
 resurrected unfinished project used as part of the CrossGate desktop app API & utility
 
-## Missing Feature
+## Finished & Still Missing Feature
 Here is the list of the site feature & pages that is still not yet made/finished and I'll update this list every change:
-- Auth API
+- _Auth API (20/1/26)_
 - Mark software to user MarkOut
 - software lister and search software feature
 - category page
