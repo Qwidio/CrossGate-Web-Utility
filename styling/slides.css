@@ -1,0 +1,38 @@
+
+.prev, .next {
+    position: absolute;
+    top: 45%;
+    aspect-ratio: 1/1;
+    background-color: rgba(0, 0, 0, 0.22);
+    color: rgba(255, 255, 255, 0.359);
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.6s;
+    border: none;
+    /* border-radius: 50%; */
+    cursor: pointer;
+    z-index: 25;
+}
+.prev {
+    left: 0;
+    padding: 6px 17px 8px 17px;
+    transform: translateX(15px);
+}
+.next {
+    right: 0;
+    padding: 6px 17px 8px 17px;
+    transform: translateX(-15px);
+}
+
+
+
+.prev:hover {
+    background-color: rgba(0, 0, 0, 0.452);
+    color: white;
+}
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.452);
+    color: white;
+}

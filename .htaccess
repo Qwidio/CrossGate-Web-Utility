@@ -1,0 +1,17 @@
+ErrorDocument 404 /404.php
+# ────────── FORCE HTTPS ──────────
+#RewriteEngine On
+#RewriteCond %{HTTPS} off
+#RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ────────── LITESPEED DOWNLOAD THROTTLING WITH AUTO BURST RESET ──────────
+#<IfModule Litespeed>
+#    RewriteEngine On
+
+    # Only throttle selected media types
+#    <FilesMatch "\.(mp3|mp4|png|jpg|jpeg|gif|webp|svg)$">
+#        # Burst limit 1 GB per request (per connection)
+#        # After burst, throttle to 1 MB/s
+#        RewriteRule .* - [E=burst:1073741824,E=download:1048576]
+#    </FilesMatch>
+#</IfModule>
