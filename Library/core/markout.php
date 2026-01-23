@@ -49,6 +49,20 @@ if ($result_check_software->num_rows > 0) {
         $titles = $value['libsTitles'];
         $Desc = $value['libsDesc'];
         $libsForum = $value['libsForum'];
+        $check_forum = $connects->prepare("SELECT * FROM forums WHERE ForumState = ? AND ForumTopics = ? ORDER BY ForumDates DESC LIMIT 1;");
+        $check_forum->bind_param("ss", $State, $libsForum);
+        $check_forum->execute();
+        $result_check_forum = $check_forum->get_result();
+        if ($result_check_forum->num_rows == 1) {
+            $data = $result_check_forum->fetch_assoc();
+            $ForumIds = $data['ForumIds'];
+            $ForumCreator = $data['ForumCreator'];
+            $ForumTitles = $data['ForumTitles'];
+            $ForumTopics = $data['ForumTopics'];
+            $ForumDates = $data['ForumDates'];
+            $ForumContents = $data['ForumContents'];
+            $ForumAttachment = $data['ForumAttachment'];
+        }
         if (!in_array($ids, $tempLibsArr)) {
             $tempLibsArr[$ids] = [
             "libsIds"        => "$ids",
@@ -56,36 +70,14 @@ if ($result_check_software->num_rows > 0) {
             "libsBanners"    => "$libsBanners",
             "libsTitles"     => "$titles",
             "libsDesc"       => "$Desc",
-            "libsForum"      => "$libsForum"
-            ];
-        };
-    };
-};
-
-$tempForums = array();
-$check_forum = $connects->prepare("SELECT * FROM forums WHERE ForumState = ? ORDER BY ForumDates ASC;");
-$check_forum->bind_param("s", $State);
-$check_forum->execute();
-$result_check_forum = $check_forum->get_result();
-if ($result_check_forum->num_rows > 0) {
-    $uniqueItem = [];
-    while ($value = $result_check_forum->fetch_assoc()) {
-        $id = $value['ForumIds'];  
-        $creators = $value['ForumCreator'];
-        $title = $value['ForumTitles'];
-        $topics = $value['ForumTopics'];
-        $date = $value['ForumDates'];
-        $descs = $value['ForumContents'];
-        $attaches = $value['ForumAttachment'];
-        if (!in_array($id, $tempForums)) {
-            $tempForums[$topics] = [
-            "ForumIds"        => "$id",
-            "ForumCreator"    => "$creators",
-            "ForumTitles"     => "$title",
-            "ForumTopics"     => "$topics",
-            "ForumDates"      => "$date",
-            "ForumContents"   => "$descs",
-            "ForumAttachment" => "$attaches",
+            "libsForum"      => "$libsForum",
+            "ForumIds"        => "$ForumIds",
+            "ForumCreator"    => "$ForumCreator",
+            "ForumTitles"     => "$ForumTitles",
+            "ForumTopics"     => "$ForumTopics",
+            "ForumDates"      => "$ForumDates",
+            "ForumContents"   => "$ForumContents",
+            "ForumAttachment" => "$ForumAttachment"
             ];
         };
     };
@@ -199,19 +191,13 @@ if ($result_check_forum->num_rows > 0) {
         <h2 class="leftMg bottomMg-s5 w100p">Publisher Announcement</h2>
         <div class="h100p flex gap-s ovs-s ovh-v">
         <?php
-        uasort($tempForums, function ($a, $b) {
-            $timeA = strtotime($a['ForumDates']);
-            $timeB = strtotime($b['ForumDates']);
-            return $timeB <=> $timeA;
-        });
         foreach ($tempCopy as $id => $value) {
             $LibIds = $value['libsIds'];
-            $libsForum = $tempLibsArr[$LibIds]['libsForum'];
-            $ForumIds = $tempForums[$libsForum]['ForumIds'];
-            $ForumAttachment = $tempForums[$libsForum]['ForumAttachment'];
-            $ForumTopics = $tempForums[$libsForum]['ForumTopics'];
-            $ForumTitles = $tempForums[$libsForum]['ForumTitles'];
-            $ForumContents = $tempForums[$libsForum]['ForumContents']; 
+            $ForumIds = $tempLibsArr[$LibIds]['ForumIds'];
+            $ForumAttachment = $tempLibsArr[$LibIds]['ForumAttachment'];
+            $ForumTopics = $tempLibsArr[$LibIds]['ForumTopics'];
+            $ForumTitles = $tempLibsArr[$LibIds]['ForumTitles'];
+            $ForumContents = $tempLibsArr[$LibIds]['ForumContents']; 
         ?>
             <div class="posr pad-s w30 r16-9 flex fld border-2 z1">
                 <?php

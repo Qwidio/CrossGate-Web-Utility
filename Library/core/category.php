@@ -72,7 +72,11 @@ $requestedItem = htmlspecialchars($requestedItem, ENT_QUOTES, 'UTF-8');
         };
         ?>
     </div>
-    <section class="topMg-10 bottomMg-10 w100p minh100 flex wrap acjc gap">
+    <div class="posr w100p r4-1 flex fld acjc bg-3 border-1">
+        <h2 class="w100p txtc txt-30 bold">CATEGORY</h2>
+        <p class="w100p txtc txt-s">Where everything must be categorized</p>
+    </div>
+    <section class="topMg-5 bottomMg-10 w100p minh100 flex wrap acjc gap">
         <?php
         if (isset($requestedItem) && isset($searchTrigger)) {
         $stmt_check_category = $connects->prepare("SELECT * FROM categorys WHERE categoryState = ? AND categoryTitles LIKE '%$requestedItem%' ORDER BY categoryTitles DESC;");
@@ -90,9 +94,9 @@ $requestedItem = htmlspecialchars($requestedItem, ENT_QUOTES, 'UTF-8');
                 $titles = $value['categoryTitles'];
                 if (!in_array($cgids, $uniqueItem)) {
         ?>
-        <div class="posr w20p r16-9 flex acjc border-1">
-            <p class="txtc"><?php echo $titles;?></p>
-            <a href="view.php?type=category&ids=<?php echo $cgids;?>" class="link-cover">.</a>
+        <div class="posr w20p r16-9 flex acjc bg-1 border-1 bora-s">
+            <p class="txtc txt-n semibold"><?php echo $titles;?></p>
+            <a href="view.php?type=category&ids=<?php echo $cgids;?>" class="link-cover hover-white">.</a>
         </div>
         <?php
                 };

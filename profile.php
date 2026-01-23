@@ -109,7 +109,6 @@ if (isset($_SESSION['profileTags']) && $uDs === "self") {
         </form>
     </dialog>
 <!-- the profile content and other stuff -->
-    <img src="#" alt="" class="posf lt0 wh100 z1">
     <div class="posr vertiMg w88p h40 flex bg-prf-default z2">
         <?php
         $check_profile = $connects->prepare("SELECT * FROM profiles WHERE profileTags = ? ;");
@@ -131,11 +130,11 @@ if (isset($_SESSION['profileTags']) && $uDs === "self") {
             <?php
             if (empty($pfAttachs) || $pfAttachs === "empty") {
             ?>
-            <img src="img/person.svg" class="autoMg r-1-1 h80p flex acjc bgc-blue objfit bora-s z4">
+            <img src="img/person.svg" class="autoMg r1-1 h80p flex acjc bgc-blue objfit bora-s z4">
             <?php
             } else {
             ?>
-            <img src="zprpic/<?php echo $pfAttachs;?>" alt="<?php echo $Names;?>" class="autoMg r-1-1 h80p flex acjc bgc-blue objfit bora-s z4">
+            <img src="zprpic/<?php echo $pfAttachs;?>" alt="<?php echo $Names;?>" class="autoMg r1-1 h80p flex acjc bgc-blue objfit bora-s z4">
             <?php
             };
             ?>
@@ -229,7 +228,7 @@ if (isset($_SESSION['profileTags']) && $uDs === "self") {
                     if (!in_array($OgIdentific, $uniqueItem)) {
             ?>
             <div class="posr bottomMg-s5 pad-m-v pad-s-s w100p flex z4">
-                <img src="Groups/img/<?php echo $logo;?>" class="r-1-1 w20p flex acjc border-1 objfit z4">
+                <img src="Groups/img/<?php echo $logo;?>" class="r1-1 w20p flex acjc border-1 objfit z4">
                 <div class="posr w80p flex fld">
                     <h2 class="topMg rightMg pad-s-s txt-s"><?php echo $OgName;?></h2>
                     <h2 class="bottomMg rightMg pad-s-s txt-s c-gray"><?php echo $member_count;?> Members</h2>

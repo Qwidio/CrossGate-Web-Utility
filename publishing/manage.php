@@ -64,7 +64,7 @@ if ($result_check_software->num_rows > 0) {
     <link rel="stylesheet" href="../styling/footer.css">
     <title>Management Dashboard</title>
 </head>
-<body class="w100p minh100 bg-2 gap10">
+<body class="w100p minh100 gap10">
     <div class="posr pad-n-s w100p minh10 flex gap-s bg-4 blurbg z4">
         <a href="../index.php" class="vertiMg pad-s txt-l semibold">CROSSGATE</a>
         <div class="posr w60p flex gap-s">
@@ -161,7 +161,7 @@ if ($result_check_software->num_rows > 0) {
     </section>
     <section class="leftMg pad-l w79p flex fld acjc">
     <!-- publish new dialog -->
-        <dialog id="add-dialog" class="posr w100p h80 fld acjc bg-semiwhite ovs-v">
+        <dialog id="add-dialog" class="posr w100p h80 fld acjc bg-half-white ovs-v">
             <div class="posa lt0 w100p flex"><h2 class="rightMg pad-s txt-b">Add New Software/Game</h2><p class="pad-s-v pad-n-s txt-b red-hover" onclick="SetDialog('add')">X</p></div>
             <form class="w100p flex flex-r wrap" action="../component/post_out.php" method="post" enctype="multipart/form-data">
                 <div class="posr r16-9 w50p flex fld acjc gap5">
@@ -207,7 +207,7 @@ if ($result_check_software->num_rows > 0) {
             </form>
         </dialog>
     <!-- the edit publishes dialog -->
-        <dialog id="edit-dialog" class="posr w100p h80 fld acjc bg-semiwhite ovs-v">
+        <dialog id="edit-dialog" class="posr w100p h80 fld acjc bg-half-white ovs-v">
             <div class="posa lt0 w100p flex"><h2 class="rightMg pad-s txt-b">Edit Publish</h2><p class="pad-s-v pad-n-s txt-b red-hover" onclick="SetDialog('edit')">X</p></div>
             <form class="w100p flex flex-r wrap" name="EDITSTUFF" action="../component/post_out.php" method="post" enctype="multipart/form-data">
                 <div class="posr r16-9 w50p flex fld acjc gap5">
@@ -253,7 +253,7 @@ if ($result_check_software->num_rows > 0) {
             </form>
         </dialog>
     <!-- the archiving publish dialog -->
-        <dialog id="update-dialog" class="posf ins0 wh100 fld acjc bg-semiwhite ovs-v z15">
+        <dialog id="update-dialog" class="posf ins0 wh100 fld acjc bg-half-white ovs-v z15">
             <div class="posa lt0 w100p flex"><h2 class="rightMg pad-s txt-b">Archive it?</h2><p class="pad-s-v pad-n-s txt-b red-hover" onclick="SetDialog('update')">X</p></div>
             <form class="w100p flex flex-r wrap" name="ARCHIVES" action="../component/post_out.php" method="post" enctype="multipart/form-data">
                 <div class="posr r16-9 w50p flex fld acjc gap5">

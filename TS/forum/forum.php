@@ -72,7 +72,7 @@ if ($result_check_profile->num_rows == 1) {
                 ?>
             <div class="posr pad-s flex fld acjc">
                 <h2 class="txt-n txtc semibold">MARKOUT</h2>
-                <a href="markout.php" class="link-cover">.</a>
+                <a href="../../Library/core/markout.php" class="link-cover">.</a>
             </div>
             <div class="posr pad-s flex fld acjc">
                 <h2 class="txt-n txtc semibold">PROFILE</h2>
@@ -83,7 +83,7 @@ if ($result_check_profile->num_rows == 1) {
             ?>
             <div class="posr pad-s flex fld acjc">
                 <h2 class="txt-n txtc semibold">CATEGORY</h2>
-                <a href="category.php" class="link-cover">.</a>
+                <a href="../../Library/core/category.php" class="link-cover">.</a>
             </div>
             <div class="posr pad-s flex fld acjc">
                 <h2 class="txt-n txtc semibold">FORUM</h2>

@@ -10,19 +10,7 @@
 resurrected unfinished project used as part of the CrossGate desktop app API & utility
 
 ## Finished & Still Missing Feature
-Here is the list of the site feature & pages that is still not yet made/finished and I'll update this list every change:
-- _Auth API (20/1/26)_
-- Mark software to user MarkOut
-- software lister and search software feature
-- category page
-- universal view page
-- groups page
-- group management
-- software publishing
-- software management
-- forum dashboard
-- forum topic page
-- full documentation
+[Here is the list](https://github.com/Qwidio/crossgate-web-utility/ohmygodthelistgoeson.md) of the site feature & pages that is still not yet made/finished and I'll update this list for every major change.
 
 ## running on your own machine
 in your local machine it is recommended for you to have these in your enviroment:

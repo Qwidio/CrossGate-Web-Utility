@@ -31,7 +31,7 @@ $requestedItem = htmlspecialchars($requestedItem, ENT_QUOTES, 'UTF-8');
     <link rel="stylesheet" href="../../styling/footer.css">
     <title>Dashboard</title>
 </head>
-<body class="w100p minh100 wrap">
+<body class="w100p minh100">
 <!-- the nav -->
     <div class="posr pad-n-s w100p minh10 flex gap-s bg-4 blurbg z4">
         <a href="index.php" class="vertiMg pad-s txt-l semibold">CROSSGATE</a>
@@ -41,7 +41,7 @@ $requestedItem = htmlspecialchars($requestedItem, ENT_QUOTES, 'UTF-8');
                 ?>
             <div class="posr pad-s flex fld acjc">
                 <h2 class="txt-n txtc semibold">MARKOUT</h2>
-                <a href="markout.php" class="link-cover">.</a>
+                <a href="../../Library/core/markout.php" class="link-cover">.</a>
             </div>
             <div class="posr pad-s flex fld acjc">
                 <h2 class="txt-n txtc semibold">PROFILE</h2>
@@ -52,7 +52,7 @@ $requestedItem = htmlspecialchars($requestedItem, ENT_QUOTES, 'UTF-8');
             ?>
             <div class="posr pad-s flex fld acjc">
                 <h2 class="txt-n txtc semibold">CATEGORY</h2>
-                <a href="category.php" class="link-cover">.</a>
+                <a href="../../Library/core/category.php" class="link-cover">.</a>
             </div>
             <div class="posr pad-s flex fld acjc">
                 <h2 class="txt-n txtc semibold">DOCS</h2>
@@ -71,8 +71,9 @@ $requestedItem = htmlspecialchars($requestedItem, ENT_QUOTES, 'UTF-8');
         };
         ?>
     </div>
+<div class="posr bottomMg-s10 w100p flex">
 <!-- topic on right of the page -->
-    <div class="posa l0 t10 pad-s w20p h100p flex fld gap-s border-r z2">
+    <div class="posr pad-s w20p flex fld gap-s border-r z2">
         <div class="pad-n-s pad-st w100p flex fld border-b">
             <h2 class="pad-sb w100p txt-n semibold">Highlight</h2>
             <div class="posr pad-s-s pad-r pad-sb w100p flex fld">
@@ -111,13 +112,14 @@ $requestedItem = htmlspecialchars($requestedItem, ENT_QUOTES, 'UTF-8');
             };
             ?>
         </div>
+        <div class="topMg minh10"></div>
     </div>
 <!-- forum there -->
+    <div class="leftMg-s10 rightMg-s10 w50p minh50 flex wrap gap10 acjc z1">
     <?php
     if ($requestedItem === "empty") {
     ?>
-    <div class="leftMg w79p minh50 flex wrap gap-s acjc z1">
-        <?php
+    <?php
         $stmt_check_HForum = $connects->prepare("SELECT * FROM forums WHERE ForumState = ? AND ForumHighlight = 'YES' ORDER BY ForumDates ASC;");
         $stmt_check_HForum->bind_param("s", $State);
         $stmt_check_HForum->execute();
@@ -133,47 +135,43 @@ $requestedItem = htmlspecialchars($requestedItem, ENT_QUOTES, 'UTF-8');
                 $Hcontents = $value['ForumContents'];
                 if (!in_array($Hids, $uniqueItem)) {
         ?>
-        <div class="posr pad-s w30p h40 flex fld bg-blue bora-n z2">
+        <div class="posr pad-s-v pad-n-s w100p h40 flex fld border-1 bora-s z2">
             <h2 class="sideMg bottomMg-s10 w90p txt-b"><?php echo $Htitles;?></h2>
             <div class="bottomMg-s5 w100p flex space-between">
                 <p class="txt-s"><?php echo $Hcreators;?></p>
                 <p class="txt-s"><?php echo $Hdates;?></p>
             </div>
             <p class="forum-content"><?php echo $Hcontents;?></p>
-            <a href="forum.php?ids=<?php echo $Hids;?>" class="link-cover">.</a>
+            <a href="forum.php?ids=<?php echo $Hids;?>" class="link-cover hover-white">.</a>
         </div>
-        <?php
+    <?php
                 };
             };
         };
-        ?>
-    </div>
+    ?>
     <?php
     };
+    if (isset($requestedItem) && isset($searchTrigger)) {
+    $check_Forum = $connects->prepare("SELECT * FROM forums WHERE ForumState = ? AND ForumTitles LIKE '%$requestedItem%' ORDER BY ForumDates DESC;");
+    $check_Forum->bind_param("s", $State);
+    } else {
+    $check_Forum = $connects->prepare("SELECT * FROM forums WHERE ForumState = ? AND ForumHighlight = 'NOs' ORDER BY ForumDates DESC;");
+    $check_Forum->bind_param("s", $State);
+    };
+    $check_Forum->execute();
+    $result_check_Forum = $check_Forum->get_result();
+    if ($result_check_Forum->num_rows > 0) {
+        $uniqueItem = [];
+        while ($value = $result_check_Forum->fetch_assoc()) {
+            $ids = $value['ForumIds'];
+            $creators = $value['ForumCreator'];
+            $titles = $value['ForumTitles'];
+            $topics = $value['ForumTopics'];
+            $dates = $value['ForumDates'];
+            $contents = $value['ForumContents'];
+            if (!in_array($ids, $uniqueItem)) {
     ?>
-    <div class="leftMg bottomMg w79p minh50 flex wrap gap-s acjc z1">
-        <?php
-        if (isset($requestedItem) && isset($searchTrigger)) {
-        $check_Forum = $connects->prepare("SELECT * FROM forums WHERE ForumState = ? AND ForumTitles LIKE '%$requestedItem%' ORDER BY ForumDates DESC;");
-        $check_Forum->bind_param("s", $State);
-        } else {
-        $check_Forum = $connects->prepare("SELECT * FROM forums WHERE ForumState = ? AND ForumHighlight = 'NOs' ORDER BY ForumDates DESC;");
-        $check_Forum->bind_param("s", $State);
-        };
-        $check_Forum->execute();
-        $result_check_Forum = $check_Forum->get_result();
-        if ($result_check_Forum->num_rows > 0) {
-            $uniqueItem = [];
-            while ($value = $result_check_Forum->fetch_assoc()) {
-                $ids = $value['ForumIds'];
-                $creators = $value['ForumCreator'];
-                $titles = $value['ForumTitles'];
-                $topics = $value['ForumTopics'];
-                $dates = $value['ForumDates'];
-                $contents = $value['ForumContents'];
-                if (!in_array($ids, $uniqueItem)) {
-        ?>
-        <div class="posr pad-s w30p h40 flex fld bg-blue bora-n z2">
+        <div class="posr pad-s-v pad-n-s w100p h40 flex fld border-1 bora-s z2">
             <h2 class="txt-n"><?php echo $titles;?></h2>
             <div class="bottomMg-s5 w100p flex space-between">
                 <p class="txt-s"><?php echo $creators;?></p>
@@ -181,20 +179,21 @@ $requestedItem = htmlspecialchars($requestedItem, ENT_QUOTES, 'UTF-8');
             </div>
             <p class="forum-content"><?php echo $contents;?>
             </p>
-            <a href="forum.php?ids=<?php echo $ids;?>" class="link-cover">.</a>
+            <a href="forum.php?ids=<?php echo $ids;?>" class="link-cover hover-white">.</a>
         </div>
-        <?php
-                };
+    <?php
             };
-        } else {
-        ?>
-            <p class="posr pad-s w30p h40 txtc z2">No forum found, got something wrong in there</p>
-        <?php
         };
-        ?>
+    } else {
+    ?>
+        <p class="posr pad-s-v pad-n-s w100p h40 txtc z2">No forum found, got something wrong in there</p>
+    <?php
+    };
+    ?>
     </div>
-
-
+<!-- recommend post -->
+    <div class="w30p minh20 flex border-l"></div>
+</div>
 <!-- forum create dialog -->
         <dialog id="add-dialog" class="posf lt0 wh100 flex fld acjc bg-white ovs-v z15">
             <div class="posa lt0 w100p flex"><h2 class="rightMg pad-s txt-b">Make New Forum</h2><p class="pad-s-v pad-n-s txt-b red-hover" onclick="SetDialog('add')">X</p></div>

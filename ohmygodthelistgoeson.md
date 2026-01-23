@@ -1,0 +1,18 @@
+- _Auth API (Finished - 20/1/26)_
+- _Download API (Worked on - 23/1/26)_
+- Mark software to user MarkOut
+- software lister 
+- search feature
+- _category page (Worked on - 23/1/26)_
+- special event page
+- _fixing universal view page (Worked on - 23/1/26)_
+- _groups profile page (Finished - 21/1/26)_
+- group management
+- software publishing
+- software management
+- forum dashboard
+- forum topic page
+- full documentation
+- forum post name based on group name
+
+- Achievement System (worked on after the desktop app goes into beta)

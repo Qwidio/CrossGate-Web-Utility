@@ -120,6 +120,9 @@ span {
 .bg-half-gray {
     background: rgba(122, 122, 122, 0.466);
 }
+.bg-half-white {
+    background: rgba(255, 255, 255, 0.466);
+}
 .bg-transparent {
     background: transparent;
 }
@@ -156,7 +159,7 @@ span {
     background: rgb(255, 255, 255);
 }
 .bg-semiwhite {
-    background: rgb(87, 97, 104);
+    background: rgb(255, 255, 255);
 }
 .bg-red {
     background: red;
@@ -762,6 +765,9 @@ span {
 .flex {
     display: flex;
 }
+.row {
+    flex-direction: row;
+}
 .flex-r {
     flex-direction: row-reverse;
 }
@@ -884,12 +890,11 @@ span {
     border: 1px solid var(--borderB);
 }
 .border-r {
-    border-right: 1px solid var(--borderA);
+    border-right: 1px solid rgb(164, 164, 164);
 }
 .border-l {
-    border-left: 1px solid var(--LibsBG2);
+    border-left: 1px solid rgb(164, 164, 164);
 }
-
 .border-t {
     border-top: 1px solid rgb(164, 164, 164);
 }

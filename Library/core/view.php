@@ -5,12 +5,12 @@ session_start();
 $signed = false;
 
 if (!isset($_GET['type']) || $_GET['type'] === "") {
-    $_SESSION['corsmsg'] = "unselected view type";
+    $_SESSION['corsmsg'] = "empty view type";
     header ('location: ../../index.php');
     exit;
 }
 if (!isset($_GET['ids']) || $_GET['ids'] === "") {
-    $_SESSION['corsmsg'] = "unselected view item";
+    $_SESSION['corsmsg'] = "empty view item";
     header ('location: ../../index.php');
     exit;
 }
@@ -25,6 +25,7 @@ if (isset($_SESSION['profileTags'])) {
 }
 switch ($Reqtype) {
     case 'category':
+        $nolibs = "no";
         $State = "publics";
         $tempCatgArray = [];
         $stmt_check_category = $connects->prepare("SELECT * FROM categorys WHERE categoryIds = ? AND categoryState = ?;");
@@ -32,11 +33,34 @@ switch ($Reqtype) {
         $stmt_check_category->execute();
         $result_check_category = $stmt_check_category->get_result();
         if ($result_check_category->num_rows > 0) {
-            $uniqueItem = [];
-            while ($value = $result_check_category->fetch_assoc()) {
-                $catgIds = $value['categoryIds'];
-                $catgTitles = $value['categoryTitles'];
-            }
+            $value = $result_check_category->fetch_assoc();
+            $catgIds = $value['categoryIds'];
+            $catgTitles = $value['categoryTitles'];
+            $uniTitles = $catgTitles;
+            $check_software = $connects->prepare("SELECT * FROM libslist WHERE libsCategorys = ? AND libsState = ? ;");
+            $check_software->bind_param("ss", $catgIds, $State);
+            $check_software->execute();
+            $result_check_software = $check_software->get_result();
+            if ($result_check_software->num_rows > 0) {
+                while ($value = $result_check_software->fetch_assoc()) {
+                    $libsIds = $value['libsIds'];
+                    $libsAttachs = $value['libsAttachs'];
+                    $libsBanners = $value['libsBanners'];
+                    $libsTitles = $value['libsTitles'];
+                    $libsDesc = $value['libsDesc'];
+                    $libsMds = $value['libsMD'];
+                    $addedDates = $value['addedDates'];
+                    $cltNumbs = $value['cltNumbs'];
+                    $fdrLibs = $value['fdrLibs'];
+                    $libsForum = $value['libsForum'];
+                };
+            } else {
+                $nolibs = "No Collection in this Category";
+            };
+        } else {
+            $_SESSION['corsmsg'] = "category were yet to exist";
+            header ('location: ../../index.php');
+            exit;
         }
         break;
     case 'clts':
@@ -47,11 +71,10 @@ switch ($Reqtype) {
         $stmt_check_category->execute();
         $result_check_category = $stmt_check_category->get_result();
         if ($result_check_category->num_rows > 0) {
-            $uniqueItem = [];
             while ($value = $result_check_category->fetch_assoc()) {
                 $ids = $value['categoryIds'];
                 $titles = $value['categoryTitles'];
-                if (!in_array($ids, $uniqueItem)) {
+                if (!in_array($ids, $tempCatgArray)) {
                     $tempCatgArray[$ids] = $titles;
                 }
             }
@@ -66,6 +89,7 @@ switch ($Reqtype) {
                 $libsAttachs = $value['libsAttachs'];
                 $libsBanners = $value['libsBanners'];
                 $libsTitles = $value['libsTitles'];
+                $uniTitles = $libsTitles;
                 $libsDesc = $value['libsDesc'];
                 $libsMds = $value['libsMD'];
                 $addedDates = $value['addedDates'];
@@ -75,6 +99,10 @@ switch ($Reqtype) {
                 $libsForum = $value['libsForum'];
                 $catgList = $tempCatgArray[$category] ?? null;
             };
+        } else {
+            $_SESSION['corsmsg'] = "no collection were found";
+            header ('location: ../../index.php');
+            exit;
         };
         if ($signed == true) {
             $sources = "../../drx/$aidis.json";
@@ -101,6 +129,9 @@ switch ($Reqtype) {
         break;
     
     default:
+        $_SESSION['corsmsg'] = "Unknown view type";
+        header ('location: ../../index.php');
+        exit;
         break;
 }
 ?>
@@ -114,7 +145,7 @@ switch ($Reqtype) {
     <link rel="stylesheet" href="../../styling/Mindex.css">
     <link rel="stylesheet" href="../../styling/footer.css">
     <link rel="stylesheet" href="../MPMT/stylesheets/github_md.min.css">
-    <title><?php echo $libsTitles;?> || CrossGate Library</title>
+    <title><?php echo $uniTitles;?> || CrossGate Library</title>
 </head>
 <body class="wh100p bg-2 flex fld">
 <!-- the nav -->
@@ -164,19 +195,28 @@ switch ($Reqtype) {
 switch ($Reqtype) {
     case 'category':
 ?>
-    <section class="topMg-5 w100p flex fld gap10">
+    <section class="topMg-5 w100p flex fld">
         <div class="sideMg w75p flex">
-            <div class="w100p h30 flex acjc border-1">
+            <div class="w100p h30 flex acjc bg-5 border-1">
                 <h2 class="w100p txt-b txtc"><?php echo $catgTitles?></h2>
             </div>
         </div>
-        <div class="sideMg w75p flex fld acjc border-1 gap-s">
+        <div class="sideMg w75p flex fld acjc gap-s">
+            <?php
+            if ($nolibs === "no") {
+            ?>
             <div class="pad-s w100p h50 flex fld bora-s">
                 .
             </div>
+            <?php
+            } else {
+            ?>
+            <h2 class="pad-b-v w100p h30 flex acjc"><?php echo $nolibs?></h2>
+            <?php
+            }
+            ?>
         </div>
     </section>
-    <section class="leftMg pad-s w100p h40"></section>
 <?php
         break;
     case 'clts':
@@ -276,9 +316,14 @@ switch ($Reqtype) {
         echo "</script>";
         $_SESSION['corsmsg'] = "";
     };
+    switch ($Reqtype) {
+        case 'clts':
     ?>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3.3.1/dist/purify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Markdown-Tag/markdown-tag.js"></script>
+    <?php
+    };
+    ?>
 </body>
 </html>

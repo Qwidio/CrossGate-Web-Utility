@@ -167,7 +167,7 @@ if ($result_check_category->num_rows > 0) {
             $category = $value['libsCategorys'];
             $catgList = $tempCatgArray[$category] ?? null;
             ?>
-        <div class="posr pad-s w100p flex bg-semiwhite gap5 border-1">
+        <div class="posr pad-s w100p flex gap5 border-1">
             <img src="Library/libsImg/<?php echo $attachs;?>" alt="<?php echo $attachs;?>" class="h10 r16-9 objfit">
             <div class="h100p flex fld">
                 <h2 class="rightMg txt-n"><?php echo $titles;?></h2>
