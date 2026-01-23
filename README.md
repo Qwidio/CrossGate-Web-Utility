@@ -10,7 +10,7 @@
 resurrected unfinished project used as part of the CrossGate desktop app API & utility
 
 ## Finished & Still Missing Feature
-[Here is the list](https://github.com/Qwidio/crossgate-web-utility/ohmygodthelistgoeson.md) of the site feature & pages that is still not yet made/finished and I'll update this list for every major change.
+[Here is the list](https://github.com/Qwidio/CrossGate-Web-Utility/blob/main/ohmygodthelistgoeson.md) of the site feature & pages that is still not yet made/finished and I'll update this list for every major change.
 
 ## running on your own machine
 in your local machine it is recommended for you to have these in your enviroment:
